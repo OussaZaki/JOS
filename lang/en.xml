@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language name="en">
+
+    <page name="errors">
+        <phase name="about">About</phase>
+        <phase name="speakers">Speakers</phase>
+        <phase name="schedule">Schedule</phase>
+        <phase name="workshops">Workshops</phase>
+        <phase name="venue">Venue</phase>
+        <phase name="sponsors">Sponsors</phase>
+        <phase name="contact">Contact</phase>
+        <phase name="login">Login</phase>
+        <phase name="register">Register</phase>
+        <phase name="title">Open Source Days</phase>
+        <phase name="theme">Linux and Technology,\n where freedom and performance meet</phase>
+        <phase name="subtitle">OSD 2014</phase>
+        <phase name="days">17 - 18</phase>
+        <phase name="month">Mai</phase>
+        <phase name="year">2014</phase>
+        <phase name="location">Marrakesh</phase>
+        <phase name="callForPaper">Call For Paper</phase>
+        <phase name="subCallForPaper">Opportunities to submit paper proposals</phase>
+    </page>
+</language>
