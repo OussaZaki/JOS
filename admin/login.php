@@ -32,7 +32,7 @@ if ($admin->get_session())
 	<link rel="stylesheet" href="assets/css/neon-theme.css">
 	<link rel="stylesheet" href="assets/css/neon-forms.css">
 	<link rel="stylesheet" href="assets/css/custom.css">
-
+        <link rel="shortcut icon" href="../images/favicon.png" />
 	<script src="assets/js/jquery-1.11.0.min.js"></script>
 
 	<!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -154,10 +154,6 @@ var baseurl = '';
 			
 			
 			<div class="login-bottom-links">
-				
-				<a href="extra-forgot-password.html" class="link">Forgot Password?</a>
-				
-				<br />
 				
 				<a href="#">OSD</a>  - <a href="#">Privacy Policy</a>
 				

@@ -1,9 +1,3 @@
-/**
- *	Neon Login Script
- *
- *	Developed by Arlind Nushi - www.laborator.co
- */
-
 var neonLogin = neonLogin || {};
 
 ;
@@ -56,7 +50,7 @@ var neonLogin = neonLogin || {};
 
                     // Send data to the server
                     $.ajax({
-                        url: baseurl + 'data/sample-login-form.php',
+                        url: baseurl + 'admin/data/sample-login-form.php',
                         method: 'POST',
                         dataType: 'json',
                         data: {

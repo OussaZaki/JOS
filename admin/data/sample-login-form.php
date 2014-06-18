@@ -12,14 +12,11 @@ $aut = new Auteur();
 $resp = array();
 
 // Fields Submitted
-//$username = $_POST["username"];
-//$password = $_POST["password"];
-$post[0] = "issam.lanouari@gmail.com";
-$post[1] = "123";
-$username = "issam.lanouari@gmail.com";
-$password = "123";
-// This array of data is returned for demo purpose,
-$resp['submitted_data'] = $post;
+$username = $_POST["username"];
+$password = $_POST["password"];
+
+$resp['submitted_data'] = $_POST;
+
 
 
 // Login success or invalid login data [success|invalid]

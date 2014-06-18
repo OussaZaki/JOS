@@ -11,6 +11,8 @@
         <phase name="contact">Contact</phase>
         <phase name="login">Login</phase>
         <phase name="register">Register</phase>
+        <phase name="article">Articles</phase>
+        <phase name="profile">Profile</phase>
         <phase name="logout">Log Out</phase>
         <phase name="title">Open Source Days</phase>
         <phase name="theme">Linux and Technology,\n where freedom and performance meet</phase>

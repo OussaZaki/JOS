@@ -87,8 +87,8 @@ class Auteur extends wOrm {
             $no_rows = mysql_num_rows($result);
 
             if ($no_rows == 1) {
-                $_SESSION['login'] = true;
-                $_SESSION['ID'] = $user_data['ID'];
+                $_SESSION['loginUser'] = true;
+                $_SESSION['userid'] = $user_data['id'];
                 return TRUE;
             } else {
                 return FALSE;
@@ -100,14 +100,14 @@ class Auteur extends wOrm {
      * @return boolean
      */
     public function get_session() {
-        if (isset($_SESSION['login']))
-            return $_SESSION['login'];
+        if (isset($_SESSION['loginUser']))
+            return $_SESSION['loginUser'];
         else
             return false;
     }
 
     public function user_logout() {
-        $_SESSION['login'] = FALSE;
+        $_SESSION['loginUser'] = FALSE;
         session_destroy();
     }
 

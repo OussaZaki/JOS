@@ -20,13 +20,13 @@ use model\soustheme\Soustheme;
 include_once $_SERVER['DOCUMENT_ROOT'] . '/jos/' . 'util/functions.php';
 
 $aut = new Auteur();
-if(isset($_SESSION['ID'])){
-    $ID = $_SESSION['ID'];
+if (isset($_SESSION['userid'])) {
+    $ID = $_SESSION['userid'];
 }
 
 if (isset($_GET['q']) && $_GET['q'] == 'logout') {
     $aut->user_logout();
-    header("location:login.php");
+    header("location:index.php");
 }
 
 /* Sets the connection */
@@ -51,11 +51,7 @@ wOrm::setDataSource($db);
         <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        <link rel="apple-touch-icon" href="images/touch-icon-iphone.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="images/touch-icon-ipad.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="images/touch-icon-iphone-retina.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="images/touch-icon-ipad-retina.png" />
-        <link rel="shortcut icon" href="images/favicon.ico" />
+        <link rel="shortcut icon" href="images/favicon.png" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
     <body>
@@ -74,6 +70,9 @@ wOrm::setDataSource($db);
                             </button>
                             <nav>
                                 <div class="nav-collapse collapse">
+                                    <ul class="nav">
+                                        
+                                    </ul>
                                     <ul id="mainnav" class="nav">
                                         <li><a href="#about"><?php echo $lang->phrases['about']; ?></a></li>
                                         <li><a href="#speakers"><?php echo $lang->phrases['authors']; ?></a></li>
@@ -84,10 +83,17 @@ wOrm::setDataSource($db);
                                         <li><a href="#contact"><?php echo $lang->phrases['contact']; ?></a></li>
                                         <?php
                                         if ($aut->get_session()) {
+                                            echo '<li><a href="auteur.php">';
+                                            echo $lang->phrases['article'];
+                                            echo "</a></li>";
+                                            echo '<li><a href="profile.php">';
+                                            echo $lang->phrases['profile'];
+                                            echo "</a></li>";
                                             echo '<li><a href="?q=logout">';
                                             echo $lang->phrases['logout'];
                                             echo "</a></li>";
-                                        } else {
+                                        }
+                                        else {
                                             echo '<li><a href="login.php">';
                                             echo $lang->phrases['login'];
                                             echo "</a></li>";

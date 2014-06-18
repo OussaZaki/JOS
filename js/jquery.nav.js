@@ -118,10 +118,10 @@
 			self.$nav.each(function() {
 				linkHref = self.getHash($(this));
 				$target = $('#' + linkHref);
-
+                                
 				if($target.length) {
 					topPos = $target.offset().top;
-					self.sections[linkHref] = Math.round(topPos) - self.config.scrollOffset;
+					self.sections[linkHref] = Math.round(topPos) - self.config.scrollOffset -4200;
 				}
 			});
 		},
@@ -145,7 +145,10 @@
 			var $link = $(e.currentTarget);
 			var $parent = $link.parent();
 			var newLoc = '#' + self.getHash($link);
-			
+			if($link.attr('href').charAt(0) !== '#' && $link.attr('href') !== ""){
+                            window.location.replace("index.php?q=logout");
+                            return;
+                        }
 			if(!$parent.hasClass(self.config.currentClass)) {
 				//Start callback
 				if(self.config.begin) {
