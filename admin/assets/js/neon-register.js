@@ -25,6 +25,8 @@ jQuery(function($) {
             type: 'post',
             url: 'admin/data/sample-register-form.php',
             data: {
+                
+                wichOne: $("#wichOne").html(),
                 first_name: $("input#first_name").val(),
                 last_name: $("input#last_name").val(),
                 nationality: $("#nationality option:selected").val(),
@@ -42,8 +44,8 @@ jQuery(function($) {
                 workteam: $("#workteam").val(),
                 favThemes: $("#favThemes").val() || [],
                 
-                hotel: $("input:radio[name=hotels]:checked" ).val(),
-                checkInOut: $("#checkInOut" ).innerHTML,
+                hotel: $("input#hotels:checked" ).val(),
+                checkInOut: $('#checkInOut').text(),
                 roomType: $( "#roomType" ).val(),         
                 arrivalTime: $("input#arrivalTime").val(),
                 
@@ -57,6 +59,13 @@ jQuery(function($) {
                     if (responseText == "") {
                         $("p.email_exist").html("You are registred. redirecting...");
                         setTimeout(function() { // deley
+                            
+                            window.location = 'success.php' ; // redirect
+
+                        }, 1500); // 1,5 sec
+                    }
+                    else{
+                         setTimeout(function() { // deley
                             
                             window.location = 'success.php' ; // redirect
 

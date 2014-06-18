@@ -13,7 +13,7 @@ var neonLogin = neonLogin || {};
 
     $(document).ready(function()
     {
-        neonLogin.$container = $("#form_login");
+        neonLogin.$container = $("#form_login_users");
 
 
         // Login Form & Validation

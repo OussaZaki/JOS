@@ -73,7 +73,7 @@ if (($handle = fopen("lang/nationalities.csv", "r")) !== FALSE) {
                         <img src="admin/assets/images/logo@2x.png" width="120" alt="" />
                     </a>
 
-                    <p class="description">Create an account, it's free and takes few moments only!</p>
+                    <p class="description">Create a new account, it takes few moments only!</p>
 
                     <!-- progress bar indicator -->
                     <div class="login-progressbar-indicator">
@@ -90,15 +90,12 @@ if (($handle = fopen("lang/nationalities.csv", "r")) !== FALSE) {
             <div class="main-content">
                 <div class="login-content registerform"> 
 
-                    <h4>Form Wizard with Validation <small>- add class <strong>validate</strong> to the form</small></h4>
-                    <hr />
-
                     <div class="well well-sm">
-                        <h4>Please fill the details to register new account.</h4>
+                        <h4>Please fill the details to register a new account.</h4>
                     </div>
 
                     <form method="post" role="form" id="form_register" class="form-wizard validate">
-
+                        <div id="wichOne" style="visibility: hidden">simple</div>
                         <div class="form-register-success">
                             <i class="entypo-check"></i>
                             <h3>You have been successfully registered.</h3>
@@ -292,28 +289,6 @@ if (($handle = fopen("lang/nationalities.csv", "r")) !== FALSE) {
                                         <div class="form-group">
                                             <label class="control-label" for="workteam">Work Team</label>
                                             <input type="text" class="form-control" name="workteam" id="workteam" placeholder="Your work team" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br />
-                                <strong>Favorite revision themes</strong>
-                                <br />
-                                <br />
-
-                                <div class="row">
-                                    <!-- fav theme -->
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Themes List</label>
-
-                                        <div class="col-sm-7">
-                                            <select multiple="multiple" id="favThemes" name="my-select[]" class="form-control multi-select">
-                                                <?php
-                                                foreach ($themes as $value => $theme) {
-                                                    echo '<option value="' . $theme->getID() . '">' . $theme->getNom() . '</option>';
-                                                }
-                                                ?>
-                                            </select>
                                         </div>
                                     </div>
                                 </div>

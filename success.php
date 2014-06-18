@@ -9,7 +9,7 @@
 	<div> <!--wrap start-->
     	<h1>Step 2 or Home page</h1>
 
-        <p><b>Registered:</b> <?php echo $_GET['email']; ?></p>
+        <p><b>Registered</p>
 
         <p>Modify if you want.....</p>
 	 </div> <!--wrap end-->

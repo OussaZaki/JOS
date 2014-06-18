@@ -3,7 +3,7 @@
 
     <page name="errors">
         <phase name="about">About</phase>
-        <phase name="speakers">Speakers</phase>
+        <phase name="authors">Authors</phase>
         <phase name="schedule">Schedule</phase>
         <phase name="workshops">Workshops</phase>
         <phase name="venue">Venue</phase>
@@ -11,6 +11,7 @@
         <phase name="contact">Contact</phase>
         <phase name="login">Login</phase>
         <phase name="register">Register</phase>
+        <phase name="logout">Log Out</phase>
         <phase name="title">Open Source Days</phase>
         <phase name="theme">Linux and Technology,\n where freedom and performance meet</phase>
         <phase name="subtitle">OSD 2014</phase>
@@ -20,5 +21,43 @@
         <phase name="location">Marrakesh</phase>
         <phase name="callForPaper">Call For Paper</phase>
         <phase name="subCallForPaper">Opportunities to submit paper proposals</phase>
+        
+        <phase name="slogan">Two Days of Inspiration!</phase>
+        <phase name="resume">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus iaculis porta.\n Vivamus mattis tempus aliquet. Donec non mauris a neque vulputate.
+        </phase>
+        <phase name="subtheme1">The Vision</phase>
+        <phase name="subtheme1resume">
+            Donec risus augue, ultricies quis ornare ac, malesuada non augue. Ut venenatis tempus semper. Curabitur rhoncus, nulla sed rhoncus sollicitudin, dolor quam vehicula odio.  
+        </phase>
+        <phase name="subtheme2">Meetings</phase>
+        <phase name="subtheme2resume">
+            Donec risus augue, ultricies quis ornare ac, malesuada non augue. Ut venenatis tempus semper. Curabitur rhoncus, nulla sed rhoncus sollicitudin, dolor quam vehicula odio. 
+        </phase>
+        <phase name="subtheme3">Workshops</phase>
+        <phase name="subtheme3resume">
+            Donec risus augue, ultricies quis ornare ac, malesuada non augue. Ut venenatis tempus semper. Curabitur rhoncus, nulla sed rhoncus sollicitudin, dolor quam vehicula odio. 
+        </phase>
+        
+        <phase name="registerMark">Take part in the conference from $80</phase>
+        <phase name="registerNow">Register Now</phase>
+        <phase name="rSimple">Simple participation</phase>
+        <phase name="rSimplePrice">$80</phase>
+        <phase name="rSimpleResume">Simple registration, you can book one of our partner hotels.</phase>
+        
+        <phase name="rAuthor">Author</phase>
+        <phase name="rAuthorPrice">$112</phase>
+        <phase name="rAuthorResume">Sign in to submit your articles or book into one of our partner hotels.</phase>
+        
+        <phase name="rScientific">Scientific Committee</phase>
+        <phase name="rScientificPrice">$150</phase>
+        <phase name="rScientificResume">Sign in to review, record and validate articles or book into one of our partner hotels.</phase>
+        <phase name="close">Close</phase>
+        
+        <phase name="authorsTitle">List of one of the best authors</phase>
+        <phase name="authorsResume">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus iaculis porta. 
+            Vivamus mattis tempus aliquet.
+        </phase>
+        
     </page>
 </language>

@@ -28,8 +28,11 @@ class Admin extends wOrm
 		parent::__construct();
 		$db = new DB_Class();
 	}
-
-	/* Custom methods should come here */
+        
+        public function __toString() {
+            return $this->id . $this->email . $this->username;
+        }
+        /* Custom methods should come here */
 
 	/**
 	* @return boolean
@@ -70,5 +73,6 @@ class Admin extends wOrm
         $_SESSION['login'] = FALSE;
         session_destroy();
     }
+    
 }
 

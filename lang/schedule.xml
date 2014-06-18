@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedule>
+    <day>
+        <day_title>September 23<sup>rd</sup></day_title>
+        <day_subtitle>First Day</day_subtitle>
+        <day_resume>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin bibendum ipsum eget nulla molestie, vitae ultricies nulla dapibus. Nulla vel faucibus erat, sed malesuada purus. Quisque varius metus et erat pulvinar luctus. Fusce neque arcu, viverra vel dui vitae, commodo vulputate orci. Cras et ipsum placerat, semper tortor a, venenatis enim. Morbi a vehicula nibh, ac bibendum nulla. Praesent tincidunt neque eget lectus mattis ullamcorper.
+        </day_resume>
+        <event>
+            <time>08:00</time>
+            <logo></logo>
+            <sponsored>Nesyan</sponsored>
+            <description>
+                Vivamus lectus quam, condimentum vitae tincidunt vel, congue id odio. Cum sociis natoquesel usts et magnis dis parturient montes, nascetur ridiculust mus. Donec vel neque ligula, sed cust metus. Vivamus porta velit at metus convallis porta. Etiam eget nunc ante. Nullam sit amet act nisis egestr sapien. Aliquam nec aliquam libero. Vestibulum consectetur sodales adipiscing. Vestibulum mi neque, vehicula id hendrerit tincidunt, aliquam nec elitas quisque pellentesque varius urna. Vivamus lectus quam, condimentum vitae tincidunt vel, congue id odio.
+            </description>
+        </event>
+        <event>
+            <time>02:00 PM</time>
+            <name>Beauty in Web Design</name>
+            <venue>Ballroom E</venue>
+            <description>
+                Great web design is all around us, but can we go beyond 'cool', 'usable' and 'fun' to create something truly beautiful? This session examines our changing attitudes to beauty, art and meaning, and why the web is ideally suited to become a vehicle for true beauty in the Information Age.
+            </description>
+            <presenters>Cennydd Bowles</presenters>
+        </event>
+        <event>
+            <time>02:00 PM</time>
+            <name>Content Strategy: What's in it for You?</name>
+            <venue>Ballroom F</venue>
+            <description>
+                Designing a comprehensive user experience without thinking about body copy, calls to action, errors, and nomenclature? Think again--about content strategy. If you're an IA, designer, search marketer, or strategist, content strategy can help you understand clients' needs, articulate an approach, and align with a brand-driven, user-centered message architecture.
+            </description>
+            <presenters>Margot Bloomstein</presenters>
+        </event>
+        <event>
+            <time>02:00 PM</time>
+            <name>Dude, This is My Car!</name>
+            <venue>Ballroom A</venue>
+            <description>
+                Discover the platform that makes the car a part of your family -- to plan your trip, suggest places where you can impress your wife with hand-crafted antiques. This session covers a new generation of automobiles that can guide you to low carbon living as well as keep you connected with...
+            </description>
+            <presenters>Paddy Srinivasan, TJ Giuli</presenters>
+        </event>
+        <event>
+            <time>02:00 PM</time>
+            <name>Game On: Funding Gaming Start-Ups In A Recession</name>
+            <venue>5ABC</venue>
+            <description>
+                The gaming industry is full of entrepreneurs jockeying to fund the next big idea. While gaming has thrived despite the recession, it's still harder than ever to secure funding. Learn first-hand from gaming entrepreneurs about how to attract funding success and how to turn that money into a profitable venture.
+            </description>
+            <presenters>Michael Cubbage</presenters>
+        </event>
+        <event>
+            <time>02:00 PM</time>
+            <name>History of the Button</name>
+            <venue>Ballroom C</venue>
+            <description>
+                Even though technology evolved at a crazy pace the last 100 years, the humble button has stayed at the center of it all. What is its past, its future? Why is it important? What does it say about the interaction between humans and technology? Pictures, stories, revelations, maybe movies.
+            </description>
+            <presenters>Bill DeRouchey</presenters>
+        </event>
+        <event>
+            <time>02:00 PM</time>
+            <name>How Sci-Fi Shapes the Internet</name>
+            <venue>9ABC</venue>
+            <description>
+                What if Rod Serling had a blog? Would Alfred Hitchcock Tweet? These great producers and directors brought suspense and irony to the popular medium of the time; television. How did their work shape the minds of the young people of the time who would grow up to create "our" Internet?
+            </description>
+            <presenters>Adria Richards</presenters>
+        </event>
+        <event>
+            <time>02:00 PM</time>
+            <name>How to Rawk SXSW</name>
+            <venue>18ABCD</venue>
+            <description>
+                Panels or parties? Sleep or Sessions? Veteran SXSW speakers and attendees give their light-hearted insights and tips on making the most of your next few days in geek wunderland.
+            </description>
+            <presenters>
+                Min Jung Kim, Ben Huh, Denise Jacobs, Jeremy Keith, Jeremy Keith
+            </presenters>
+        </event>
+        <event>
+            <time>02:00 PM</time>
+            <name>In Code We Trust: Open Government Awesomeness</name>
+            <venue>10AB</venue>
+            <description>
+                "In Code We Trust" is the new motto for Government in the 21st century. Across the country, geeks inside and outside of government are developing a new model for a participatory and transparent Federal, State and Municipal governments. Built upon open-source tools, open standards, and best practices, this panel will highlight...
+            </description>
+            <presenters>Alissa Black, Dmitry Kachaev, Noel Hidalgo</presenters>
+        </event>
+        <event>
+            <time>08:00 PM</time>
+            <name>
+                Xephyra: An alternative world music and video mythos
+            </name>
+            <venue>Vortex Theater</venue>
+            <description>
+                Award-winning artists Chad Salvata and Jo Beth Henderson have created the newest ethos adventure, Xephyra, an alternative world music and video mythos. This non-traditional performance is presented with video images and live music. The extraordinary vocals are performed in an imaginary language of a mythic tribal island world. Xephyra, a warrior...
+            </description>
+        </event>
+        <time>09:00 PM</time>
+        <name>Visions</name>
+        <venue>Mohawk</venue>
+    </day>
+</schedule>

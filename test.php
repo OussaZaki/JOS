@@ -1,7 +1,7 @@
 <?php
 
-
 /* Core */
+
 use core\model\db\wDb;
 use core\model\pdo\wPdo;
 use core\model\orm\wOrm;
@@ -14,12 +14,12 @@ use model\admin\Admin;
 use model\auteur\Auteur;
 use model\soustheme\Soustheme;
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/jos/'.'util/functions.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/jos/' . 'util/functions.php';
 
 try {
     /* Sets the connection */
     $pdo = new wPdo('mysql:host=localhost;dbname=tests_orm', 'root', '');
-    $db  = new wDb($pdo);
+    $db = new wDb($pdo);
     wOrm::setDataSource($db);
 
     /* Tests */
@@ -37,7 +37,26 @@ try {
     echo '<br />';
     echo '- ' . Tag::count() . ' tag(s)';
     echo '<br />';
-    
+    $all = Auteur::find(array('wichone' => "author"));
+    foreach ($all as $aut) {
+
+        echo '<li>';
+        echo '<div class="item">';
+        echo '<div class="photo-wrap hover_colour">';
+        echo '<img src="' . $aut->getPicture() . '" alt=" " />';
+        echo '</div>';
+        echo '<div class="text-wrap white">';
+        echo '<h3>' . $aut->getNom() . ' ' . $aut->getPrenom() . '</h3>';
+        echo '<h5>' . $aut->getInstitution() . '</h5>';
+        echo '<hr class="divider-short center" />';
+        echo '<p class="description">' . $aut->getResume() . '</p>';
+        echo '</div>';
+        echo '<div class="social">';
+        echo '<p class="description">' . $aut->getEmail() . '<br>' . $aut->getTel() . '</p>';
+        echo '</div>';
+        echo '</div>';
+        echo '</li>';
+    }
     //Creat Auteur
     echo '<br />';
     echo '<b>Create a new \'Auteur\' :</b>';
@@ -57,7 +76,6 @@ try {
 //
 //    $aut->save();
 //    echo '<br />';
-    
     //Creat Theme
     echo '<br />';
     echo '<b>Create a new \'Theme\' :</b>';
@@ -68,13 +86,13 @@ try {
 //
 //    $them->save();
     echo '<br />';
-    
+
     //Creat SousTheme
     echo '<br />';
     echo '<b>Create relations \'Theme\' :</b>';
     echo '<br />';
     $them = new Theme();
-    $them  = Theme::findOne(array('nom' => 'Informatique'));
+    $them = Theme::findOne(array('nom' => 'Informatique'));
     echo $them;
     echo '<br />';
     $sthem1 = Soustheme::findOne(array('nom' => 'PHP'));
@@ -84,18 +102,18 @@ try {
     $sthem1->ThemeID = $them->ID;
     echo '<b>testingID</b>';
     echo '<br />';
-    echo  $sthem1->ThemeID ;
+    echo $sthem1->ThemeID;
     echo '<br />';
     $sthem1->save();
-    
+
     $sthem2 = Soustheme::findOne(array('nom' => 'Java'));
     $sthem2->ThemeID = $them->ID;
     $sthem2->save();
     $them->setSousthemes(array($sthem1, $sthem2));
     echo 'After: ' . $them->getNbSousthemes();
 //    $sthem1->setthemeID($them->getID());
-    
-    foreach($them->getSousthemes() as $St) {
+
+    foreach ($them->getSousthemes() as $St) {
         echo '<li>' . $St->getNom() . '</li>';
     }
     dpm($them);
@@ -109,9 +127,9 @@ try {
 //    $sthem->nom            = 'Java';
 //    $sthem->theme           = 'Informatique';
 //    $sthem->save();
-    
+
     echo '<br />';
-    
+
     echo '<b>Database overview :</b>';
     echo '<br />';
     echo '- ' . Admin::count() . ' admin(s)';
@@ -126,7 +144,7 @@ try {
     echo '<br />';
     echo '- ' . Tag::count() . ' tag(s)';
     echo '<br />';
-    
+
 //    $article = Article::findOne(array('id' => 1));
 //
 //    echo '<br />';
@@ -215,7 +233,6 @@ try {
 //    echo '- ' . Tag::count() . ' tag(s)';
 //    echo '<br />';
 //    echo '<br />';
-
-} catch(\Exception $e) {
+} catch (\Exception $e) {
     echo 'Ooops! ' . $e->getMessage() . '<br />';
 }

@@ -1,23 +1,25 @@
 <?php
 
-/*
-  Sample Processing of Forgot password form via ajax
-  Page: extra-register.html
- */
 session_start();
-include_once '../include/Admin.php';
-$admin = new Admin();
-echo 'im here';
+
+use model\auteur\Auteur;
+
+include_once $_SERVER['DOCUMENT_ROOT'] . '/jos/'.'util/functions.php';
+
+$aut = new Auteur();
+
 # Response Data Array
 $resp = array();
 
 // Fields Submitted
-$username = $_POST["username"];
-$password = $_POST["password"];
-
-
+//$username = $_POST["username"];
+//$password = $_POST["password"];
+$post[0] = "issam.lanouari@gmail.com";
+$post[1] = "123";
+$username = "issam.lanouari@gmail.com";
+$password = "123";
 // This array of data is returned for demo purpose,
-$resp['submitted_data'] = $_POST;
+$resp['submitted_data'] = $post;
 
 
 // Login success or invalid login data [success|invalid]
@@ -25,7 +27,7 @@ $resp['submitted_data'] = $_POST;
 $login_status = 'invalid';
 
 
-$login = $admin->check_login($username, $password);
+$login = $aut->check_login($username, $password);
 if ($login) {
     // Registration Success
     $login_status = 'success';

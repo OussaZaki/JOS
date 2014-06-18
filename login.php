@@ -6,8 +6,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/jos/'.'util/functions.php';
 
 $auteur = new Auteur();
 
-//if ($auteur->get_session()) 
-//    header("location:index.php");
+if ($auteur->get_session()) 
+    header("location:index.php");
 ?>
 
 <html lang="en">
@@ -46,7 +46,7 @@ $auteur = new Auteur();
 
 
 <!-- This is needed when you send requests via Ajax --><script type="text/javascript">
-var baseurl = '';
+var baseurl = '../';
 </script>
 
 <div class="login-container">
@@ -83,7 +83,7 @@ var baseurl = '';
 				<p>Please re-enter your <strong>login</strong>/<strong>password</strong>.</p>
 			</div>
 			
-			<form method="post" role="form" id="form_login">
+			<form method="post" role="form" id="form_login_users">
 				
 				<div class="form-group">
 					

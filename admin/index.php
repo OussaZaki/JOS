@@ -1,21 +1,28 @@
 <?php
-    session_start();
-    use model\admin\Admin;
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/jos/'.'util/functions.php';
-    
-    $admin = new Admin();
-    $ID = $_SESSION['ID'];
+session_start();
 
-    if (!$admin->get_session())
-    {
-        header("location:login.php");
-    }
+use core\model\db\wDb;
+use core\model\pdo\wPdo;
+use core\model\orm\wOrm;
+use model\admin\Admin;
 
-    if (isset($_GET['q']) && $_GET['q'] == 'logout') 
-    {
-        $admin->user_logout();
-        header("location:login.php");
-    }
+include_once $_SERVER['DOCUMENT_ROOT'] . '/jos/' . 'util/functions.php';
+
+$admin = new Admin();
+$ID = $_SESSION['ID'];
+
+if (!$admin->get_session()) {
+    header("location:login.php");
+} else {
+    $pdo = new wPdo('mysql:host=localhost;dbname=tests_orm', 'root', '');
+    $db = new wDb($pdo);
+    wOrm::setDataSource($db);
+    $admin = Admin::findOne(array('id' => $ID));
+}
+if (isset($_GET['q']) && $_GET['q'] == 'logout') {
+    $admin->user_logout();
+    header("location:login.php");
+}
 ?>
 <html lang="fr">
     <head>
@@ -23,10 +30,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Neon Admin Panel" />
+        <meta name="description" content="Administration" />
         <meta name="author" content="" />
 
-        <title>Neon | Dashboard</title>
+        <title>JOS | Administration</title>
 
 
         <link rel="stylesheet" href="assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
@@ -85,11 +92,6 @@
 
                 </header>
 
-
-
-
-
-
                 <ul id="main-menu" class="">
                     <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                     <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
@@ -107,243 +109,50 @@
                             <i class="entypo-gauge"></i>
                             <span>Dashboard</span>
                         </a>
-                        <ul>
-                            <li class="active">
-                                <a href="index.html">
-                                    <span>Dashboard 1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="dashboard-2.html">
-                                    <span>Dashboard 2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="dashboard-3.html">
-                                    <span>Dashboard 3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="skin-black.html">
-                                    <span>Skins</span>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="skin-black.html">
-                                            <span>Black Skin</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="skin-white.html">
-                                            <span>White Skin</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="skin-purple.html">
-                                            <span>Purple Skin</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="skin-cafe.html">
-                                            <span>Cafe Skin</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="skin-red.html">
-                                            <span>Red Skin</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="skin-green.html">
-                                            <span>Green Skin</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="skin-yellow.html">
-                                            <span>Yellow Skin</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="skin-blue.html">
-                                            <span>Blue Skin</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="highlights.html">
-                                    <span>What's New</span>
-                                    <span class="badge badge-success badge-roundless">v1.7</span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <li>
-                        <a href="layout-api.html">
+                        <a href="fr.php">
                             <i class="entypo-layout"></i>
-                            <span>Layouts</span>
+                            <span>Front End</span>
                         </a>
                         <ul>
                             <li>
-                                <a href="layout-api.html">
-                                    <span>Layout API</span>
+                                <a href="fr.php">
+                                    <span>Version Française</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="layout-collapsed-sidebar.html">
-                                    <span>Collapsed Sidebar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="layout-fixed-sidebar.html">
-                                    <span>Fixed Sidebar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="layout-chat-open.html">
-                                    <span>Chat Open</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="layout-horizontal-menu-boxed.html">
-                                    <span>Horizontal Menu Boxed</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="layout-horizontal-menu-fluid.html">
-                                    <span>Horizontal Menu Fluid</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="layout-mixed-menus.html">
-                                    <span>Mixed Menus</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="layout-right-sidebar.html">
-                                    <span>Right Sidebar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="layout-both-menus-right-sidebar.html">
-                                    <span>Both Menus (Right Sidebar)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="layout-page-transition-fade.html">
-                                    <span>Page Enter Transitions</span>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="layout-page-transition-fade.html">
-                                            <span>Fade Scale</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="layout-page-transition-left-in.html">
-                                            <span>Left In</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="layout-page-transition-right-in.html">
-                                            <span>Right In</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="layout-page-transition-fade-only.html">
-                                            <span>Fade Only</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="layout-boxed.html">
-                                    <span>Boxed Layout</span>
-                                    <span class="badge badge-secondary badge-roundless">New</span>
+                                <a href="en.php">
+                                    <span>Version Anglaise</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="index.html" target="_blank">
+                        <a href="../index.php" target="_blank">
                             <i class="entypo-monitor"></i>
-                            <span>Frontend</span>
+                            <span>Site Web</span>
                         </a>
                     </li>
                     <li>
                         <a href="ui-panels.html">
                             <i class="entypo-newspaper"></i>
-                            <span>UI Elements</span>
+                            <span>Soumissions</span>
                         </a>
                         <ul>
                             <li>
                                 <a href="ui-panels.html">
-                                    <span>Panels</span>
+                                    <span>Articles</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="ui-tiles.html">
-                                    <span>Tiles</span>
+                                    <span>Affectation</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="forms-buttons.html">
-                                    <span>Buttons</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-typography.html">
-                                    <span>Typography</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-tabs-accordions.html">
-                                    <span>Tabs &amp; Accordions</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-tooltips-popovers.html">
-                                    <span>Tooltips &amp; Popovers</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-navbars.html">
-                                    <span>Navbars</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-breadcrumbs.html">
-                                    <span>Breadcrumbs</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-badges-labels.html">
-                                    <span>Badges &amp; Labels</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-progress-bars.html">
-                                    <span>Progress Bars</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-modals.html">
-                                    <span>Modals</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-blockquotes.html">
-                                    <span>Blockquotes</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-alerts.html">
-                                    <span>Alerts</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-pagination.html">
-                                    <span>Pagination</span>
+                                    <span>Comité Scientifique</span>
                                 </a>
                             </li>
                         </ul>
@@ -351,26 +160,37 @@
                     <li>
                         <a href="mailbox.html">
                             <i class="entypo-mail"></i>
-                            <span>Mailbox</span>
-                            <span class="badge badge-secondary">8</span>
+                            <span>Participations</span>
                         </a>
                         <ul>
                             <li>
                                 <a href="mailbox.html">
                                     <i class="entypo-inbox"></i>
-                                    <span>Inbox</span>
+                                    <span>Liste des participants</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="mailbox-compose.html">
                                     <i class="entypo-pencil"></i>
-                                    <span>Compose Message</span>
+                                    <span>Réservation</span>
                                 </a>
+                                <ul>
+                                    <li>
+                                        <a href="extra-gallery.html">
+                                            <span>Liste des hotels</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="extra-gallery-single.html">
+                                            <span>Ajouter un hotel</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="mailbox-message.html">
                                     <i class="entypo-attach"></i>
-                                    <span>View Message</span>
+                                    <span>Service transport</span>
                                 </a>
                             </li>
                         </ul>
@@ -378,345 +198,20 @@
                     <li>
                         <a href="forms-main.html">
                             <i class="entypo-doc-text"></i>
-                            <span>Forms</span>
+                            <span>Calendrier</span>
                         </a>
-                        <ul>
-                            <li>
-                                <a href="forms-main.html">
-                                    <span>Basic Elements</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="forms-advanced.html">
-                                    <span>Advanced Plugins</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="forms-wizard.html">
-                                    <span>Form Wizard</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="forms-validation.html">
-                                    <span>Data Validation</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="forms-masks.html">
-                                    <span>Input Masks</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="forms-sliders.html">
-                                    <span>Sliders</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="forms-file-upload.html">
-                                    <span>File Upload</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="forms-wysiwyg.html">
-                                    <span>Editors</span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <a href="tables-main.html">
                             <i class="entypo-window"></i>
-                            <span>Tables</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="tables-main.html">
-                                    <span>Basic Tables</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="tables-datatable.html">
-                                    <span>Data Tables</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="extra-icons.html">
-                            <i class="entypo-bag"></i>
-                            <span>Extra</span>
-                            <span class="badge badge-info badge-roundless">New Items</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="extra-icons.html">
-                                    <span>Icons</span>
-                                    <span class="badge badge-success">3</span>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="extra-icons.html">
-                                            <span>Font Awesome</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="extra-icons-entypo.html">
-                                            <span>Entypo</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="extra-icons-glyphicons.html">
-                                            <span>Glyph Icons</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="extra-portlets.html">
-                                    <span>Portlets</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-google-maps.html">
-                                    <span>Maps</span>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="extra-google-maps.html">
-                                            <span>Google Maps</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="extra-vector-maps.html">
-                                            <span>Vector Maps</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="extra-chat-api.html">
-                                    <span>Chat API</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-calendar.html">
-                                    <span>Calendar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-notes.html">
-                                    <span>Notes</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-lockscreen.html">
-                                    <span>Lockscreen</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="login.html">
-                                    <span>Login</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-register.html">
-                                    <span>Register</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-invoice.html">
-                                    <span>Invoice</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-members.html">
-                                    <span>Members</span>
-                                    <span class="badge badge-secondary badge-roundless">New</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-gallery.html">
-                                    <span>Gallery</span>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="extra-gallery.html">
-                                            <span>Albums</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="extra-gallery-single.html">
-                                            <span>Single Album</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="extra-profile.html">
-                                    <span>Profile</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-404.html">
-                                    <span>404 Page</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-blank-page.html">
-                                    <span>Blank Page</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-timeline.html">
-                                    <span>Timeline</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-comments.html">
-                                    <span>Comments</span>
-                                    <span class="badge badge-secondary badge-roundless">New</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-timeline-centered.html">
-                                    <span>Timeline Centered</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-tocify.html">
-                                    <span>Tocify</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ui-notifications.html">
-                                    <span>Notifications</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-new-post.html">
-                                    <span>New Post</span>
-                                    <span class="badge badge-secondary badge-roundless">New</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-settings.html">
-                                    <span>Settings</span>
-                                    <span class="badge badge-secondary badge-roundless">New</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-scrollbox.html">
-                                    <span>Scrollbox</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-image-crop.html">
-                                    <span>Image Crop</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-search.html">
-                                    <span>Search Page</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-language-selector.html">
-                                    <span>Language Selector</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-nestable.html">
-                                    <span>Nestable Lists</span>
-                                    <span class="badge badge-secondary badge-roundless">New</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-file-tree.html">
-                                    <span>File Tree</span>
-                                    <span class="badge badge-secondary badge-roundless">New</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="extra-load-progress.html">
-                                    <span>Load Progress</span>
-                                    <span class="badge badge-secondary badge-roundless">New</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="charts.html">
-                            <i class="entypo-chart-bar"></i>
-                            <span>Charts</span>
+                            <span>Notes</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="entypo-flow-tree"></i>
-                            <span>Menu Levels</span>
+                        <a href="tables-main.html">
+                            <i class="entypo-window"></i>
+                            <span>Profile</span>
                         </a>
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="entypo-flow-line"></i>
-                                    <span>Menu Level 1.1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="entypo-flow-line"></i>
-                                    <span>Menu Level 1.2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="entypo-flow-line"></i>
-                                    <span>Menu Level 1.3</span>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="entypo-flow-parallel"></i>
-                                            <span>Menu Level 2.1</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="entypo-flow-parallel"></i>
-                                            <span>Menu Level 2.2</span>
-                                        </a>
-                                        <ul>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="entypo-flow-cascade"></i>
-                                                    <span>Menu Level 3.1</span>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="entypo-flow-branch"></i>
-                                                            <span>Menu Level 4.1</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="entypo-flow-cascade"></i>
-                                                    <span>Menu Level 3.2</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="entypo-flow-parallel"></i>
-                                            <span>Menu Level 2.3</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
 
@@ -735,7 +230,7 @@
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="assets/images/thumb-1@2x.png" alt="" class="img-circle" width="44" />
-                                    Art Ramadani
+                                    <?php echo $admin->full_name ?>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -752,13 +247,6 @@
                                     </li>
 
                                     <li>
-                                        <a href="mailbox.html">
-                                            <i class="entypo-mail"></i>
-                                            Inbox
-                                        </a>
-                                    </li>
-
-                                    <li>
                                         <a href="extra-calendar.html">
                                             <i class="entypo-calendar"></i>
                                             Calendar
@@ -768,387 +256,17 @@
                                     <li>
                                         <a href="#">
                                             <i class="entypo-clipboard"></i>
-                                            Tasks
+                                            Notes
                                         </a>
                                     </li>
                                 </ul>
                             </li>
 
                         </ul>
-
-                        <ul class="user-info pull-left pull-right-xs pull-none-xsm">
-
-                            <!-- Raw Notifications -->
-                            <li class="notifications dropdown">
-
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <i class="entypo-attention"></i>
-                                    <span class="badge badge-info">6</span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    <li class="top">
-                                        <p class="small">
-                                            <a href="#" class="pull-right">Mark all Read</a>
-                                            You have <strong>3</strong> new notifications.
-                                        </p>
-                                    </li>
-
-                                    <li>
-                                        <ul class="dropdown-menu-list scroller">
-                                            <li class="unread notification-success">
-                                                <a href="#">
-                                                    <i class="entypo-user-add pull-right"></i>
-
-                                                    <span class="line">
-                                                        <strong>New user registered</strong>
-                                                    </span>
-
-                                                    <span class="line small">
-                                                        30 seconds ago
-                                                    </span>
-                                                </a>
-                                            </li>
-
-                                            <li class="unread notification-secondary">
-                                                <a href="#">
-                                                    <i class="entypo-heart pull-right"></i>
-
-                                                    <span class="line">
-                                                        <strong>Someone special liked this</strong>
-                                                    </span>
-
-                                                    <span class="line small">
-                                                        2 minutes ago
-                                                    </span>
-                                                </a>
-                                            </li>
-
-                                            <li class="notification-primary">
-                                                <a href="#">
-                                                    <i class="entypo-user pull-right"></i>
-
-                                                    <span class="line">
-                                                        <strong>Privacy settings have been changed</strong>
-                                                    </span>
-
-                                                    <span class="line small">
-                                                        3 hours ago
-                                                    </span>
-                                                </a>
-                                            </li>
-
-                                            <li class="notification-danger">
-                                                <a href="#">
-                                                    <i class="entypo-cancel-circled pull-right"></i>
-
-                                                    <span class="line">
-                                                        John cancelled the event
-                                                    </span>
-
-                                                    <span class="line small">
-                                                        9 hours ago
-                                                    </span>
-                                                </a>
-                                            </li>
-
-                                            <li class="notification-info">
-                                                <a href="#">
-                                                    <i class="entypo-info pull-right"></i>
-
-                                                    <span class="line">
-                                                        The server is status is stable
-                                                    </span>
-
-                                                    <span class="line small">
-                                                        yesterday at 10:30am
-                                                    </span>
-                                                </a>
-                                            </li>
-
-                                            <li class="notification-warning">
-                                                <a href="#">
-                                                    <i class="entypo-rss pull-right"></i>
-
-                                                    <span class="line">
-                                                        New comments waiting approval
-                                                    </span>
-
-                                                    <span class="line small">
-                                                        last week
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="external">
-                                        <a href="#">View all notifications</a>
-                                    </li>				</ul>
-
-                            </li>
-
-                            <!-- Message Notifications -->
-                            <li class="notifications dropdown">
-
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <i class="entypo-mail"></i>
-                                    <span class="badge badge-secondary">10</span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <ul class="dropdown-menu-list scroller">
-                                            <li class="active">
-                                                <a href="#">
-                                                    <span class="image pull-right">
-                                                        <img src="assets/images/thumb-1.png" alt="" class="img-circle" />
-                                                    </span>
-
-                                                    <span class="line">
-                                                        <strong>Luc Chartier</strong>
-                                                        - yesterday
-                                                    </span>
-
-                                                    <span class="line desc small">
-                                                        This ain’t our first item, it is the best of the rest.
-                                                    </span>
-                                                </a>
-                                            </li>
-
-                                            <li class="active">
-                                                <a href="#">
-                                                    <span class="image pull-right">
-                                                        <img src="assets/images/thumb-2.png" alt="" class="img-circle" />
-                                                    </span>
-
-                                                    <span class="line">
-                                                        <strong>Salma Nyberg</strong>
-                                                        - 2 days ago
-                                                    </span>
-
-                                                    <span class="line desc small">
-                                                        Oh he decisively impression attachment friendship so if everything. 
-                                                    </span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="#">
-                                                    <span class="image pull-right">
-                                                        <img src="assets/images/thumb-3.png" alt="" class="img-circle" />
-                                                    </span>
-
-                                                    <span class="line">
-                                                        Hayden Cartwright
-                                                        - a week ago
-                                                    </span>
-
-                                                    <span class="line desc small">
-                                                        Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
-                                                    </span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="#">
-                                                    <span class="image pull-right">
-                                                        <img src="assets/images/thumb-4.png" alt="" class="img-circle" />
-                                                    </span>
-
-                                                    <span class="line">
-                                                        Sandra Eberhardt
-                                                        - 16 days ago
-                                                    </span>
-
-                                                    <span class="line desc small">
-                                                        On so attention necessary at by provision otherwise existence direction.
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="external">
-                                        <a href="mailbox.html">All Messages</a>
-                                    </li>				</ul>
-
-                            </li>
-
-                            <!-- Task Notifications -->
-                            <li class="notifications dropdown">
-
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <i class="entypo-list"></i>
-                                    <span class="badge badge-warning">1</span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    <li class="top">
-                                        <p>You have 6 pending tasks</p>
-                                    </li>
-
-                                    <li>
-                                        <ul class="dropdown-menu-list scroller">
-                                            <li>
-                                                <a href="#">
-                                                    <span class="task">
-                                                        <span class="desc">Procurement</span>
-                                                        <span class="percent">27%</span>
-                                                    </span>
-
-                                                    <span class="progress">
-                                                        <span style="width: 27%;" class="progress-bar progress-bar-success">
-                                                            <span class="sr-only">27% Complete</span>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span class="task">
-                                                        <span class="desc">App Development</span>
-                                                        <span class="percent">83%</span>
-                                                    </span>
-
-                                                    <span class="progress progress-striped">
-                                                        <span style="width: 83%;" class="progress-bar progress-bar-danger">
-                                                            <span class="sr-only">83% Complete</span>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span class="task">
-                                                        <span class="desc">HTML Slicing</span>
-                                                        <span class="percent">91%</span>
-                                                    </span>
-
-                                                    <span class="progress">
-                                                        <span style="width: 91%;" class="progress-bar progress-bar-success">
-                                                            <span class="sr-only">91% Complete</span>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span class="task">
-                                                        <span class="desc">Database Repair</span>
-                                                        <span class="percent">12%</span>
-                                                    </span>
-
-                                                    <span class="progress progress-striped">
-                                                        <span style="width: 12%;" class="progress-bar progress-bar-warning">
-                                                            <span class="sr-only">12% Complete</span>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span class="task">
-                                                        <span class="desc">Backup Create Progress</span>
-                                                        <span class="percent">54%</span>
-                                                    </span>
-
-                                                    <span class="progress progress-striped">
-                                                        <span style="width: 54%;" class="progress-bar progress-bar-info">
-                                                            <span class="sr-only">54% Complete</span>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span class="task">
-                                                        <span class="desc">Upgrade Progress</span>
-                                                        <span class="percent">17%</span>
-                                                    </span>
-
-                                                    <span class="progress progress-striped">
-                                                        <span style="width: 17%;" class="progress-bar progress-bar-important">
-                                                            <span class="sr-only">17% Complete</span>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="external">
-                                        <a href="#">See all tasks</a>
-                                    </li>				</ul>
-
-                            </li>
-
-                        </ul>
-
                     </div>
-
-
-                    <!-- Raw Links -->
                     <div class="col-md-6 col-sm-4 clearfix hidden-xs">
 
                         <ul class="list-inline links-list pull-right">
-
-                            <!-- Language Selector -->			<li class="dropdown language-selector">
-
-                                Language: &nbsp;
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
-                                    <img src="assets/images/flag-uk.png" />
-                                </a>
-
-                                <ul class="dropdown-menu pull-right">
-                                    <li>
-                                        <a href="#">
-                                            <img src="assets/images/flag-de.png" />
-                                            <span>Deutsch</span>
-                                        </a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="#">
-                                            <img src="assets/images/flag-uk.png" />
-                                            <span>English</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="assets/images/flag-fr.png" />
-                                            <span>François</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="assets/images/flag-al.png" />
-                                            <span>Shqip</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="assets/images/flag-es.png" />
-                                            <span>Español</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </li>
-
-                            <li class="sep"></li>
-
-
-                            <li>
-                                <a href="#" data-toggle="chat" data-animate="1" data-collapse-sidebar="1">
-                                    <i class="entypo-chat"></i>
-                                    Chat
-
-                                    <span class="badge badge-success chat-notifications-badge is-hidden">0</span>
-                                </a>
-                            </li>
-
-                            <li class="sep"></li>
-
                             <li>
                                 <a href="?q=logout">
                                     Log Out <i class="entypo-logout right"></i>
@@ -1157,7 +275,6 @@
                         </ul>
 
                     </div>
-
                 </div>
 
                 <hr />
@@ -1165,27 +282,27 @@
                 <script type="text/javascript">
                     jQuery(document).ready(function($)
                     {
-                        // Sample Toastr Notification
-                        setTimeout(function()
-                        {
-                            var opts = {
-                                "closeButton": true,
-                                "debug": false,
-                                "positionClass": rtl() || public_vars.$pageContainer.hasClass('right-sidebar') ? "toast-top-left" : "toast-top-right",
-                                "toastClass": "black",
-                                "onclick": null,
-                                "showDuration": "300",
-                                "hideDuration": "1000",
-                                "timeOut": "5000",
-                                "extendedTimeOut": "1000",
-                                "showEasing": "swing",
-                                "hideEasing": "linear",
-                                "showMethod": "fadeIn",
-                                "hideMethod": "fadeOut"
-                            };
-
-                            toastr.success("You have been awarded with 1 year free subscription. Enjoy it!", "Account Subcription Updated", opts);
-                        }, 3000);
+//                        // Sample Toastr Notification
+//                        setTimeout(function()
+//                        {
+//                            var opts = {
+//                                "closeButton": true,
+//                                "debug": false,
+//                                "positionClass": rtl() || public_vars.$pageContainer.hasClass('right-sidebar') ? "toast-top-left" : "toast-top-right",
+//                                "toastClass": "black",
+//                                "onclick": null,
+//                                "showDuration": "300",
+//                                "hideDuration": "1000",
+//                                "timeOut": "5000",
+//                                "extendedTimeOut": "1000",
+//                                "showEasing": "swing",
+//                                "hideEasing": "linear",
+//                                "showMethod": "fadeIn",
+//                                "hideMethod": "fadeOut"
+//                            };
+//
+//                            toastr.success("You have been awarded with 1 year free subscription. Enjoy it!", "Account Subcription Updated", opts);
+//                        }, 3000);
 
 
                         // Sparkline Charts

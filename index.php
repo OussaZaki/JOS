@@ -1,6 +1,38 @@
 <?php
+session_start();
 include_once 'lang/Lang.php';
 $lang = new Lang();
+
+/* Core */
+
+use core\model\db\wDb;
+use core\model\pdo\wPdo;
+use core\model\orm\wOrm;
+
+/* Models */
+use model\tag\Tag;
+use model\article\Article;
+use model\theme\Theme;
+use model\admin\Admin;
+use model\auteur\Auteur;
+use model\soustheme\Soustheme;
+
+include_once $_SERVER['DOCUMENT_ROOT'] . '/jos/' . 'util/functions.php';
+
+$aut = new Auteur();
+if(isset($_SESSION['ID'])){
+    $ID = $_SESSION['ID'];
+}
+
+if (isset($_GET['q']) && $_GET['q'] == 'logout') {
+    $aut->user_logout();
+    header("location:login.php");
+}
+
+/* Sets the connection */
+$pdo = new wPdo('mysql:host=localhost;dbname=tests_orm', 'root', '');
+$db = new wDb($pdo);
+wOrm::setDataSource($db);
 ?>
 <html lang="en">
     <head>
@@ -44,14 +76,26 @@ $lang = new Lang();
                                 <div class="nav-collapse collapse">
                                     <ul id="mainnav" class="nav">
                                         <li><a href="#about"><?php echo $lang->phrases['about']; ?></a></li>
-                                        <li><a href="#speakers"><?php echo $lang->phrases['speakers']; ?></a></li>
+                                        <li><a href="#speakers"><?php echo $lang->phrases['authors']; ?></a></li>
                                         <li><a href="#schedule"><?php echo $lang->phrases['schedule']; ?></a></li>
                                         <li><a href="#workshops"><?php echo $lang->phrases['workshops']; ?></a></li>
                                         <li><a href="#venue"><?php echo $lang->phrases['venue']; ?></a></li>
                                         <li><a href="#sponsors"><?php echo $lang->phrases['sponsors']; ?></a></li>
                                         <li><a href="#contact"><?php echo $lang->phrases['contact']; ?></a></li>
-                                        <li><a href="#news"><?php echo $lang->phrases['login']; ?></a></li>
-                                        <li><a href="" data-toggle="modal" data-target="#modal-register" ><?php echo $lang->phrases['register']; ?></a></li>
+                                        <?php
+                                        if ($aut->get_session()) {
+                                            echo '<li><a href="?q=logout">';
+                                            echo $lang->phrases['logout'];
+                                            echo "</a></li>";
+                                        } else {
+                                            echo '<li><a href="login.php">';
+                                            echo $lang->phrases['login'];
+                                            echo "</a></li>";
+                                            echo '<li><a href="" data-toggle="modal" data-target="#modal-register" >';
+                                            echo $lang->phrases['register'];
+                                            echo "</a></li>";
+                                        }
+                                        ?>
                                     </ul>
                                 </div>
                             </nav>
@@ -91,7 +135,7 @@ $lang = new Lang();
                                 <div class="span12 text-center">
                                     <h1><?php echo $lang->phrases['callForPaper']; ?></h1>
                                     <h3><?php echo $lang->phrases['subCallForPaper']; ?></h3>
-                                    <a href="#" class="btn btn-large btn-primary"><?php echo $lang->phrases['login']; ?></a>
+                                    <a href="login.php" class="btn btn-large btn-primary"><?php echo $lang->phrases['login']; ?></a>
                                 </div>
                             </div>
                         </li>
@@ -108,38 +152,38 @@ $lang = new Lang();
                 <ul class="price-table">
                     <li class="price-item clearfix item">
                         <div class="price-header">
-                            <span class="title">Simple participation</span>
-                            <span class="price">$80</span>
+                            <span class="title"><?php echo $lang->phrases['rSimple']; ?></span>
+                            <span class="price"><?php echo $lang->phrases['rSimplePrice']; ?></span>
                         </div>
                         <div class="price-content">
-                            <p>Simple registration, you can book one of our partner hotels.</p>
-                            <input type="button" class="btn" value="Register" />
+                            <p><?php echo $lang->phrases['rSimpleResume']; ?></p>
+                            <a href="register_sm.php"><input type="button" class="btn" value="<?php echo $lang->phrases['register']; ?>" /></a>
                         </div>
                     </li>
                     <li class="price-item clearfix item">
                         <div class="price-header">
-                            <span class="title">Author</span>
-                            <span class="price">$112</span>
+                            <span class="title"><?php echo $lang->phrases['rAuthor']; ?></span>
+                            <span class="price"><?php echo $lang->phrases['rAuthorPrice']; ?></span>
                         </div>
                         <div class="price-content">
-                            <p>Sign in to submit your articles or book into one of our partner hotels.</p>
-                            <input type="button" class="btn" value="Register" />
+                            <p><?php echo $lang->phrases['rAuthorResume']; ?></p>
+                            <a href="register_au.php"><input type="button" class="btn" value="<?php echo $lang->phrases['register']; ?>" /></a>
                         </div>
                     </li>
                     <li class="price-item clearfix item">
                         <div class="price-header">
-                            <span class="title">Scientific Committee</span>
-                            <span class="price">$150</span>
+                            <span class="title"><?php echo $lang->phrases['rScientific']; ?></span>
+                            <span class="price"><?php echo $lang->phrases['rScientificPrice']; ?></span>
                         </div>
                         <div class="price-content">
-                            <p>Sign in to review, record and validate articles or book into one of our partner hotels.</p>
-                            <input type="button" class="btn" value="Order Now" />
+                            <p><?php echo $lang->phrases['rScientificResume']; ?></p>
+                            <a href="register_sc.php"><input type="button" class="btn" value="<?php echo $lang->phrases['register']; ?>" /></a>
                         </div>
                     </li>
                 </ul>
             </div>
             <div class="modal-footer">
-                <a data-dismiss="modal" class="btn">Close</a>
+                <a data-dismiss="modal" class="btn"><?php echo $lang->phrases['close']; ?></a>
             </div>
         </div>
         <section id="about">
@@ -147,17 +191,13 @@ $lang = new Lang();
                 <div class="row">
                     <div class="span12">
                         <div class="module-header about-header">
-                            <h4>About</h4>
+                            <h4><?php echo $lang->phrases['about']; ?></h4>
                         </div>
                     </div>
                     <div class="span12 hero-unit text-center">
-                        <h1>Three Days of Inspiration!</h1>
-                        <h3>
-                            <time datetime="2014-09-23">23</time> - <time datetime="2014-09-25">25</time> September 2014, New York
-                        </h3>
-                        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus iaculis porta.<br />
-                            Vivamus mattis tempus aliquet. Donec non mauris a neque vulputate.
-                        </h4>
+                        <h1><?php echo $lang->phrases['slogan']; ?></h1>
+                        <h3><?php echo $lang->phrases['days']; ?> <?php echo $lang->phrases['month']; ?> <?php echo $lang->phrases['year']; ?>, <?php echo $lang->phrases['location']; ?></h3>
+                        <h4><?php echo $lang->phrases['resume']; ?></h4>
                     </div>
                     <div class="span12">
                         <div class="divider-space"></div>
@@ -166,28 +206,22 @@ $lang = new Lang();
                         <div class="icon-wrap large color1">
                             <i class="iconf-lightbulb"></i>
                         </div>
-                        <h3>The Vision</h3>
-                        <p>Donec risus augue, ultricies quis ornare ac, malesuada non augue. Ut venenatis tempus semper. Curabitur rhoncus,
-                            nulla sed rhoncus sollicitudin, dolor quam vehicula odio.
-                        </p>
+                        <h3><?php echo $lang->phrases['subtheme1']; ?></h3>
+                        <p><?php echo $lang->phrases['subtheme1resume']; ?></p>
                     </div>
                     <div class="span4 text-center">
                         <div class="icon-wrap large color2">
                             <i class="iconf-world"></i>
                         </div>
-                        <h3>Meetings</h3>
-                        <p>Donec risus augue, ultricies quis ornare ac, malesuada non augue. Ut venenatis tempus semper. Curabitur rhoncus, 
-                            nulla sed rhoncus sollicitudin, dolor quam vehicula odio.
-                        </p>
+                        <h3><?php echo $lang->phrases['subtheme2']; ?></h3>
+                        <p><?php echo $lang->phrases['subtheme2resume']; ?></p>
                     </div>
                     <div class="span4 text-center">
                         <div class="icon-wrap large color3">
                             <i class="iconf-beaker"></i>
                         </div>
-                        <h3>Workshops</h3>
-                        <p>Donec risus augue, ultricies quis ornare ac, malesuada non augue. Ut venenatis tempus semper. Curabitur rhoncus, 
-                            nulla sed rhoncus sollicitudin, dolor quam vehicula odio.
-                        </p>
+                        <h3><?php echo $lang->phrases['subtheme3']; ?></h3>
+                        <p><?php echo $lang->phrases['subtheme3resume']; ?></p>
                     </div>
                 </div>
             </div>
@@ -197,8 +231,8 @@ $lang = new Lang();
                 <div class="row">
                     <div id="countdown"></div>
                     <div class="span12 white register-box text-center">
-                        <h2 class="register-title">Take part in the conference from $80</h2>
-                        <a data-toggle="modal" data-target="#modal-register" id="register-button" class="btn btn-large btn-primary">Register Now</a>
+                        <h2 class="register-title"><?php echo $lang->phrases['registerMark']; ?></h2>
+                        <a data-toggle="modal" data-target="#modal-register" id="register-button" class="btn btn-large btn-primary"><?php echo $lang->phrases['registerNow']; ?></a>
                     </div>
                 </div>
             </div>
@@ -208,14 +242,12 @@ $lang = new Lang();
                 <div class="row">
                     <div class="span12">
                         <div class="module-header speakers-header">
-                            <h4>Speakers</h4>
+                            <h4><?php echo $lang->phrases['authors']; ?></h4>
                         </div>
                     </div>
                     <div class="span12 hero-unit text-center white">
-                        <h2>Learn From These Great Folks</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus iaculis porta. 
-                            Vivamus mattis tempus aliquet.
-                        </p>
+                        <h2><?php echo $lang->phrases['authorsTitle']; ?></h2>
+                        <p><?php echo $lang->phrases['authorsResume']; ?></p>
                     </div>
                     <div class="span12">
                         <div class="divider-space"></div>
@@ -223,222 +255,28 @@ $lang = new Lang();
                     <div class="span12">
                         <div id="speakerscarousel" class="carouselslider speakers-carousel item-4">
                             <ul>
-                                <li>
-                                    <div class="item">
-                                        <div class="photo-wrap hover_colour">
-                                            <img src="images/photos/face01.jpg" alt=" " />
-                                        </div>
-                                        <div class="text-wrap white">
-                                            <h3>John Doe</h3>
-                                            <h5>Designer at Cottage</h5>
-                                            <hr class="divider-short center" />
-                                            <p class="description">Proin bibendum ipsum eget nulla molestie, vitae ultricies nulla.</p>
-                                        </div>
-                                        <div class="social">
-                                            <a href="#" target="_blank" title="Facebook" class="icon-wrap small facebook">
-                                                <i class="iconf-facebook"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Twitter" class="icon-wrap small twitter">
-                                                <i class="iconf-twitter"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Google+" class="icon-wrap small google">
-                                                <i class="iconf-gplus"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Linkedin" class="icon-wrap small linkedin">
-                                                <i class="iconf-linkedin"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="photo-wrap">
-                                            <img src="images/photos/face02.jpg" alt=" " />
-                                        </div>
-                                        <div class="text-wrap white">
-                                            <h3>John Doe</h3>
-                                            <h5>Designer at Cottage</h5>
-                                            <hr class="divider-short center" />
-                                            <p class="description">Proin bibendum ipsum eget nulla molestie, vitae ultricies nulla.</p>
-                                        </div>
-                                        <div class="social">
-                                            <a href="#" target="_blank" title="Facebook" class="icon-wrap small facebook">
-                                                <i class="iconf-facebook"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Twitter" class="icon-wrap small twitter">
-                                                <i class="iconf-twitter"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Google+" class="icon-wrap small google">
-                                                <i class="iconf-gplus"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Linkedin" class="icon-wrap small linkedin">
-                                                <i class="iconf-linkedin"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="photo-wrap">
-                                            <img src="images/photos/face03.jpg" alt=" " />
-                                        </div>
-                                        <div class="text-wrap white">
-                                            <h3>John Doe</h3>
-                                            <h5>Designer at Cottage</h5>
-                                            <hr class="divider-short center" />
-                                            <p class="description">Proin bibendum ipsum eget nulla molestie, vitae ultricies nulla.</p>
-                                        </div>
-                                        <div class="social">
-                                            <a href="#" target="_blank" title="Facebook" class="icon-wrap small facebook">
-                                                <i class="iconf-facebook"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Twitter" class="icon-wrap small twitter">
-                                                <i class="iconf-twitter"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Google+" class="icon-wrap small google">
-                                                <i class="iconf-gplus"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Linkedin" class="icon-wrap small linkedin">
-                                                <i class="iconf-linkedin"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="photo-wrap">
-                                            <img src="images/photos/face04.jpg" alt=" " />
-                                        </div>
-                                        <div class="text-wrap white">
-                                            <h3>John Doe</h3>
-                                            <h5>Designer at Cottage</h5>
-                                            <hr class="divider-short center" />
-                                            <p class="description">Proin bibendum ipsum eget nulla molestie, vitae ultricies nulla.</p>
-                                        </div>
-                                        <div class="social">
-                                            <a href="#" target="_blank" title="Facebook" class="icon-wrap small facebook">
-                                                <i class="iconf-facebook"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Twitter" class="icon-wrap small twitter">
-                                                <i class="iconf-twitter"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Google+" class="icon-wrap small google">
-                                                <i class="iconf-gplus"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Linkedin" class="icon-wrap small linkedin">
-                                                <i class="iconf-linkedin"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="photo-wrap">
-                                            <img src="images/photos/face05.jpg" alt=" " />
-                                        </div>
-                                        <div class="text-wrap white">
-                                            <h3>John Doe</h3>
-                                            <h5>Designer at Cottage</h5>
-                                            <hr class="divider-short center" />
-                                            <p class="description">Proin bibendum ipsum eget nulla molestie, vitae ultricies nulla.</p>
-                                        </div>
-                                        <div class="social">
-                                            <a href="#" target="_blank" title="Facebook" class="icon-wrap small facebook">
-                                                <i class="iconf-facebook"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Twitter" class="icon-wrap small twitter">
-                                                <i class="iconf-twitter"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Google+" class="icon-wrap small google">
-                                                <i class="iconf-gplus"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Linkedin" class="icon-wrap small linkedin">
-                                                <i class="iconf-linkedin"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="photo-wrap">
-                                            <img src="images/photos/face06.jpg" alt=" " />
-                                        </div>
-                                        <div class="text-wrap white">
-                                            <h3>John Doe</h3>
-                                            <h5>Designer at Cottage</h5>
-                                            <hr class="divider-short center" />
-                                            <p class="description">Proin bibendum ipsum eget nulla molestie, vitae ultricies nulla.</p>
-                                        </div>
-                                        <div class="social">
-                                            <a href="#" target="_blank" title="Facebook" class="icon-wrap small facebook">
-                                                <i class="iconf-facebook"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Twitter" class="icon-wrap small twitter">
-                                                <i class="iconf-twitter"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Google+" class="icon-wrap small google">
-                                                <i class="iconf-gplus"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Linkedin" class="icon-wrap small linkedin">
-                                                <i class="iconf-linkedin"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="photo-wrap">
-                                            <img src="images/photos/face07.jpg" alt=" " />
-                                        </div>
-                                        <div class="text-wrap white">
-                                            <h3>John Doe</h3>
-                                            <h5>Designer at Cottage</h5>
-                                            <hr class="divider-short center" />
-                                            <p class="description">Proin bibendum ipsum eget nulla molestie, vitae ultricies nulla.</p>
-                                        </div>
-                                        <div class="social">
-                                            <a href="#" target="_blank" title="Facebook" class="icon-wrap small facebook">
-                                                <i class="iconf-facebook"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Twitter" class="icon-wrap small twitter">
-                                                <i class="iconf-twitter"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Google+" class="icon-wrap small google">
-                                                <i class="iconf-gplus"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Linkedin" class="icon-wrap small linkedin">
-                                                <i class="iconf-linkedin"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="photo-wrap">
-                                            <img src="images/photos/face08.jpg" alt=" " />
-                                        </div>
-                                        <div class="text-wrap white">
-                                            <h3>John Doe</h3>
-                                            <h5>Designer at Cottage</h5>
-                                            <hr class="divider-short center" />
-                                            <p class="description">Proin bibendum ipsum eget nulla molestie, vitae ultricies nulla.</p>
-                                        </div>
-                                        <div class="social">
-                                            <a href="#" target="_blank" title="Facebook" class="icon-wrap small facebook">
-                                                <i class="iconf-facebook"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Twitter" class="icon-wrap small twitter">
-                                                <i class="iconf-twitter"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Google+" class="icon-wrap small google">
-                                                <i class="iconf-gplus"></i>
-                                            </a>
-                                            <a href="#" target="_blank" title="Linkedin" class="icon-wrap small linkedin">
-                                                <i class="iconf-linkedin"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
+                                <?php
+                                $all = Auteur::find(array('wichone' => "author"));
+                                foreach ($all as $aut) {
+
+                                    echo '<li>';
+                                    echo '<div class="item">';
+                                    echo '<div class="photo-wrap hover_colour">';
+                                    echo '<img src="' . $aut->getPicture() . '" alt=" " />';
+                                    echo '</div>';
+                                    echo '<div class="text-wrap white">';
+                                    echo '<h3>' . $aut->getNom() . ' ' . $aut->getPrenom() . '</h3>';
+                                    echo '<h5>' . $aut->getInstitution() . '</h5>';
+                                    echo '<hr class="divider-short center" />';
+                                    echo '<p class="description">' . $aut->getResume() . '</p>';
+                                    echo '</div>';
+                                    echo '<div class="social">';
+                                    echo '<p class="description">' . $aut->getEmail() . '<br>' . $aut->getTel() . '</p>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '</li>';
+                                }
+                                ?>
                             </ul>
                         </div>
                     </div>
